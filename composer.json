@@ -1,0 +1,22 @@
+{
+    "name": "koala-framework/kwc-susy",
+    "description": "Susy Layout Tookit Integration for Koala Framework",
+    "homepage": "http://www.koala-framework.org/",
+    "license": "BSD-2-Clause",
+    "type": "library",
+    "require": {
+        "koala-framework/koala-framework": "~4.0"
+    },
+    "extra": {
+        "require-bower": {
+            "susy": "2.2.6"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-0": {
+            "Kwc_Susy_": ""
+        }
+    }
+}
