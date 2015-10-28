@@ -9,7 +9,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
             foreach ($this->_getSetting('columns') as $column) {
                 $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
                 //same logic in scss
-                if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] / $breakpoint['columns'] * $context['spans'] < 300) {
+                if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
                     //full width
                     $spans = $context['spans'];
                 } else {
@@ -39,7 +39,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
         foreach ($ownContexts as &$context) {
             $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
             //same logic in scss
-            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] / $breakpoint['columns'] * $context['spans'] < 300) {
+            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
                 //full width
             } else {
                 $context['spans'] = floor($context['spans'] * $widthCalc);

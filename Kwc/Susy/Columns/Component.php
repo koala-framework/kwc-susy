@@ -1,9 +1,10 @@
 <?php
 class Kwc_Susy_Columns_Component extends Kwc_Columns_Abstract_Component
 {
-    public static function getSettings($parentComponentClass)
+    public static $needsParentComponentClass = false;
+    public static function getSettings()
     {
-        $ret = parent::getSettings('Theme_Paragraphs_Component');
+        $ret = parent::getSettings('Kwc_Paragraphs_Component');
         $columnsTrl = trlKwfStatic('Columns');
         $ret['columns'] = array(
             '2col-50_50' => array(
@@ -30,7 +31,7 @@ class Kwc_Susy_Columns_Component extends Kwc_Columns_Abstract_Component
     {
         $ret = parent::getTemplateVars();
         foreach ($this->getMasterLayoutContexts() as $c) {
-            $ret['rootElementClass'] .= " $c[masterLayout]-$c[breakpoint]-spans$c[spans]";
+            $ret['rootElementClass'] .= " kwfUp-$c[masterLayout]-$c[breakpoint]-spans$c[spans]";
         }
         return $ret;
     }

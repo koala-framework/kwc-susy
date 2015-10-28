@@ -26,7 +26,7 @@
             @each $column-type-class, $column-count in $column-types {
                 &.#{$column-type-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
                     //same logic in php _getChildMasterLayoutContexts
-                    @if not $breakpoint-value or $breakpoint-value / susy-get(columns, $susy) * $content-spans < 300px {
+                    @if not $breakpoint-value or $breakpoint-value * $content-spans / susy-get(columns, $susy) < 300px {
                         $column-spans: $content-spans;
                     } @else {
                         $column-spans: floor($content-spans / $column-count);
@@ -35,8 +35,10 @@
                         }
                     }
                     @include span($column-spans of $content-spans);
-                    &--lineLast {
-                        @include last;
+                    @if $content-spans % $column-count == 0 {
+                        &--lineLast {
+                            @include last;
+                        }
                     }
                 }
             }

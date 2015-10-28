@@ -14,6 +14,7 @@
         imagewidth-33: 3,
         imagewidth-25: 4,
     );
+
     @each $layout-context in map-get($config, master-layout-contexts) {
         $master-layout-name: map-get($layout-context, masterLayout);
         $breakpoint-name: map-get($layout-context, breakpoint);
@@ -21,9 +22,9 @@
         $content-spans: map-get($layout-context, spans);
         @include kwf-breakpoint($breakpoint-name, map-get($master-layouts, $master-layout-name)) {
             @each $image-width-class, $column-count in $image-widths {
-                &.kwcBem__#{$image-width-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__image {
+                &.kwcBem--#{$image-width-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} {
                     //same logic in php _getChildMasterLayoutContexts
-                    @if not $breakpoint-value or $breakpoint-value / susy-get(columns, $susy) * $content-spans < 300px {
+                    @if not $breakpoint-value or $breakpoint-value * $content-spans / susy-get(columns, $susy) < 300px {
                         $image-spans: $content-spans;
                     } @else {
                         $image-spans: floor($content-spans / $column-count);
@@ -31,9 +32,11 @@
                             $image-spans: 1;
                         }
 
-                        @if ($image-spans*2 > $content-spans) {
+                        @if ($image-spans*2 < $content-spans) {
 
-                            @include span($image-spans of $content-spans);
+                            .kwcBem__image {
+                                @include span($image-spans of $content-spans);
+                            }
 
                             &.kwcBem--noFlow {
                                 .kwcBem__image {

@@ -49,9 +49,7 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
 
             if (Kwc_Abstract::hasSetting($c['component'], 'masterLayout')) {
                 $ret[] = array_merge($stack, array($c));
-            }
-            $csMasterLayout = call_user_func(array(Kwc_Abstract::getSetting($c['component'], 'contentSender'), 'getMasterLayout'));
-            if ($csMasterLayout !== false) {
+            } else if (is_instance_of(Kwc_Abstract::getSetting($c['component'], 'contentSender'), 'Kwf_Component_Abstract_ContentSender_Lightbox')) {
                 $ret[] = array_merge($stack, array($c));
             }
             $ret = array_merge($ret, $this->_findParentsStack($c['component'], array_merge($stack, array($c))));

@@ -69,8 +69,11 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             if (isset($layout['column-width'])) {
                 $columnWidth = (int)$layout['column-width'];
-            } else {
+            } else if (isset($layout['breakpoint'])) {
                 $columnWidth = (int)$layout['breakpoint'] / $layout['columns']; //TODO not correct
+            } else {
+                //no breakpoint, no column-width: that's most probably mobile and that won't be max anyway. ignore it.
+                continue;
             }
             if (isset($data->box)) {
                 $ret[] = $layout['box-spans'][$data->box] * $columnWidth;

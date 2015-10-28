@@ -17,7 +17,7 @@ class Kwc_Susy_TextImage_Layout extends Kwc_Susy_Layout
         foreach ($ownContexts as &$context) {
             $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
             //same logic in scss
-            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] / $breakpoint['columns'] * $context['spans'] < 300) {
+            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
                 //full width
             } else {
                 $context['spans'] = floor($context['spans'] * $widthCalc);
