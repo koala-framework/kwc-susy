@@ -1,0 +1,47 @@
+@import "susy";
+
+
+@import "config/master-layouts";
+@import "kwc-susy/master-layout-helper";
+
+@import "config";
+
+.kwcClass {
+    &__listItem {
+        &--lineFirst {
+            clear: both;
+        }
+    }
+    $column-types: (
+        col2col-50_50: 2,
+        col3col-33_33_33: 3,
+        col4col-25_25_25_25: 4,
+    );
+    @each $layout-context in map-get($config, master-layout-contexts) {
+        $master-layout-name: map-get($layout-context, masterLayout);
+        $breakpoint-name: map-get($layout-context, breakpoint);
+        $breakpoint-value: map-get(map-get(map-get($master-layouts, $master-layout-name), $breakpoint-name), breakpoint);
+        $content-spans: map-get($layout-context, spans);
+        @include kwf-breakpoint($breakpoint-name, map-get($master-layouts, $master-layout-name)) {
+            @each $column-type-class, $column-count in $column-types {
+                &.#{$column-type-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
+                    //same logic in php _getChildMasterLayoutContexts
+                    @if not $breakpoint-value or $breakpoint-value / susy-get(columns, $susy) * $content-spans < 300px {
+                        $column-spans: $content-spans;
+                    } @else {
+                        $column-spans: floor($content-spans / $column-count);
+                        @if $column-spans < 1 {
+                            $column-spans: 1;
+                        }
+                    }
+                    @include span($column-spans of $content-spans);
+                    &--lineLast {
+                        @include last;
+                    }
+                }
+            }
+
+        }
+    }
+}
+

@@ -1,0 +1,25 @@
+@import "susy";
+@import "config/master-layouts";
+
+@each $master, $breakpoints in $master-layouts {
+    @each $breakpoint, $layout in $breakpoints {
+        breakpoint {
+            master: $master;
+            breakpoint-name: $breakpoint;
+            breakpoint: map-get($layout, breakpoint);
+            columns: susy-get(columns, map-get($layout, layout));
+            column-width: susy-get(column-width, map-get($layout, layout));
+            content-spans: map-get($layout, content-spans);
+        }
+        @if map-get($layout, box-spans) {
+            @each $box-name, $spans in map-get($layout, box-spans) {
+                box-spans {
+                    master: $master;
+                    breakpoint-name: $breakpoint;
+                    box-name: $box-name;
+                    spans: $spans;
+                }
+            }
+        }
+    }
+}

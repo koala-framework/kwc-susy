@@ -1,0 +1,69 @@
+$breakpoints: null;
+
+@mixin set-master-layout($layout-name, $breakpoint-name: null) {
+    $breakpoints: map-get($master-layouts, $layout-name) !global;
+    @if not($breakpoint-name) { $breakpoint-name: nth(nth($breakpoints, 1), 1); }
+    @include layout(get-breakpoint-layout($breakpoint-name));
+}
+
+@function get-breakpoint-breakpoint($breakpoint-name) {
+    @return map-get(map-get($breakpoints, $breakpoint-name), breakpoint);
+}
+@function get-breakpoint-layout($breakpoint-name) {
+    @return map-get(map-get($breakpoints, $breakpoint-name), layout);
+}
+@function get-breakpoint-margin($breakpoint-name) {
+    @return map-get(map-get($breakpoints, $breakpoint-name), margin);
+}
+
+@mixin kwf-breakpoint($breakpoint-name, $_breakpoints: null) {
+    $old-breakpoints: $breakpoints;
+    @if $_breakpoints { $breakpoints: $_breakpoints !global; }
+    $noMq: map-get(map-get($breakpoints, $breakpoint-name), no-mediaqueries);
+    @if $noMq {
+        $noMq: "html.kwfUp-no-mediaqueries";
+    } else {
+        $noMq: false;
+    }
+    $breakpoint: get-breakpoint-breakpoint($breakpoint-name);
+    @if $breakpoint {
+        @include susy-breakpoint($breakpoint, get-breakpoint-layout($breakpoint-name), $noMq) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+    $breakpoints: $old-breakpoints !global;
+}
+
+@mixin kwf-breakpoints($breakpoint-names) {
+    @each $breakpoint-name in $breakpoint-names {
+        @include kwf-breakpoint($breakpoint-name) {
+            @content;
+        }
+    }
+}
+
+/*
+@mixin master-layout-breakpoints($master-layout, $breakpoint-names) {
+  $prev-layout: null;
+  @each $layout-name, $layout-config in $breakpoints {
+    $breakpoint: map-get($layout-config, breakpoint);
+    $layout: map-get($layout-config, layout);
+    @if $prev-layout != $layout {
+      @if $breakpoint {
+        $no-media-class: null;
+        @if map-get($layout-config, no-mediaqueries) {
+          $no-media-class: "html.kwfUp-no-mediaqueries";
+        }
+        @include susy-breakpoint($breakpoint, $layout, $no-media-class) {
+          @content;
+        }
+      } @else {
+        @content;
+      }
+    }
+    $prev-layout: $layout;
+  }
+}
+*/

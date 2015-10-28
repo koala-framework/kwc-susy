@@ -1,0 +1,112 @@
+@import "susy";
+@import "compass/utilities/general/clearfix";
+
+@import "config/master-layouts";
+@import "kwc-susy/master-layout-helper";
+
+@import "config";
+
+.kwcClass {
+    @include pie-clearfix;
+
+    $image-widths: (
+        imagewidth-50: 2,
+        imagewidth-33: 3,
+        imagewidth-25: 4,
+    );
+    @each $layout-context in map-get($config, master-layout-contexts) {
+        $master-layout-name: map-get($layout-context, masterLayout);
+        $breakpoint-name: map-get($layout-context, breakpoint);
+        $breakpoint-value: map-get(map-get(map-get($master-layouts, $master-layout-name), $breakpoint-name), breakpoint);
+        $content-spans: map-get($layout-context, spans);
+        @include kwf-breakpoint($breakpoint-name, map-get($master-layouts, $master-layout-name)) {
+            @each $image-width-class, $column-count in $image-widths {
+                &.kwcBem__#{$image-width-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__image {
+                    //same logic in php _getChildMasterLayoutContexts
+                    @if not $breakpoint-value or $breakpoint-value / susy-get(columns, $susy) * $content-spans < 300px {
+                        $image-spans: $content-spans;
+                    } @else {
+                        $image-spans: floor($content-spans / $column-count);
+                        @if $image-spans < 1 {
+                            $image-spans: 1;
+                        }
+
+                        @if ($image-spans*2 > $content-spans) {
+
+                            @include span($image-spans of $content-spans);
+
+                            &.kwcBem--noFlow {
+                                .kwcBem__image {
+                                    display: table-cell;
+                                }
+
+                                &.kwcBem--positionLeft, &.kwcBem--positionRight {
+                                    .kwcBem__text {
+                                        display: table-cell;
+                                    }
+                                }
+                            }
+
+                            &.kwcBem--positionLeft, &.kwcBem--positionRight { .kwfUp-imageCaption { text-align: left; } }
+                            &.kwcBem--positionLeft .kwcBem__image { float: left; margin-right: 18px; }
+                            &.kwcBem--positionRight .kwcBem__image { float: right; margin-left: 18px; }
+                            &.kwcBem--positionCenter {
+                                .kwcBem__image {
+                                    text-align: center;
+                                    display: inline;
+
+                                    img {
+                                        margin-bottom: -3px;
+                                        display: inline;
+                                    }
+                                }
+
+                                .kwcBem__text { display: block; }
+                            }
+
+                            .kwcBem__image {
+                                img {
+                                    display: block;
+                                }
+                                margin-bottom: 3px;
+                                display: inline;
+                                max-width: 50%;
+                            }
+
+
+
+                            .kwfUp-imageCaption {
+                                padding: 3px 0 5px 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    &.kwcBem__image {
+        text-align: center;
+
+        img {
+            display: inline;
+        }
+    }
+
+    .kwfUp-kwcImage {
+        margin: 0 auto;
+    }
+
+    .kwcBem__image {
+        > .kwfUp-kwcImage {
+            max-width: 100% !important;
+        }
+    }
+
+    .kwfUp-imageCaption {
+        padding: 0 0 5px 0;
+        text-align: center;
+        margin: 0 auto;
+    }
+}

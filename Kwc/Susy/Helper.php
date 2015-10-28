@@ -1,0 +1,29 @@
+<?php
+class Kwc_Susy_Helper
+{
+    public static function getLayouts()
+    {
+        $ret = array();
+        $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Kwc/Susy/Helper/get-layouts.scss');
+        preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContents(null), $m);
+        foreach (array_keys($m[0]) as $i) {
+            $ruleName = $m[1][$i];
+            $rule = $m[2][$i];
+            preg_match_all('#([a-zA-Z-]+):\s*([^;]+)#', $rule, $m2);
+            $entry = array();
+            foreach (array_keys($m2[0]) as $k) {
+                $propName = $m2[1][$k];
+                $propValue = $m2[2][$k];
+                if ($propName == 'content-spans') $propValue = (int)$propValue;
+                $entry[$propName] = $propValue;
+            }
+            if ($ruleName == 'breakpoint') {
+                $ret[$entry['master']][$entry['breakpoint-name']] = $entry;
+                $ret[$entry['master']][$entry['breakpoint-name']]['box-spans'] = array();
+            } else if ($ruleName == 'box-spans') {
+                $ret[$entry['master']][$entry['breakpoint-name']]['box-spans'][$entry['box-name']] = (int)$entry['spans'];
+            }
+        }
+        return $ret;
+    }
+}
