@@ -51,8 +51,8 @@
                             }
 
                             &.kwcBem--positionLeft, &.kwcBem--positionRight { .kwfUp-imageCaption { text-align: left; } }
-                            &.kwcBem--positionLeft .kwcBem__image { float: left; margin-right: 18px; }
-                            &.kwcBem--positionRight .kwcBem__image { float: right; margin-left: 18px; }
+                            &.kwcBem--positionLeft .kwcBem__image { float: left; }
+                            &.kwcBem--positionRight .kwcBem__image { @include last; }
                             &.kwcBem--positionCenter {
                                 .kwcBem__image {
                                     text-align: center;
