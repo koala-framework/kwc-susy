@@ -32,7 +32,7 @@
                             $image-spans: 1;
                         }
 
-                        @if ($image-spans*2 < $content-spans) {
+                        @if ($image-spans*2 <= $content-spans) {
 
                             .kwcBem__image {
                                 @include span($image-spans of $content-spans);

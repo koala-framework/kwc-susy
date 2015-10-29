@@ -36,7 +36,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
         $widthCalc = $child->row->col_span / $child->row->columns;
         $ret = array();
         $masterLayouts = Kwc_Susy_Helper::getLayouts();
-        foreach ($ownContexts as &$context) {
+        foreach ($ownContexts as $context) {
             $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
             //same logic in scss
             if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
@@ -46,9 +46,9 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
                 if ($context['spans'] < 1) {
                     $context['spans'] = 1;
                 }
+                $ret[] = $context;
             }
         }
-        unset($context);
         return $ret;
     }
 }
