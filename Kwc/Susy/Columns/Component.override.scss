@@ -22,7 +22,7 @@
         $breakpoint-name: map-get($layout-context, breakpoint);
         $breakpoint-value: map-get(map-get(map-get($master-layouts, $master-layout-name), $breakpoint-name), breakpoint);
         $content-spans: map-get($layout-context, spans);
-        @include kwf-breakpoint($breakpoint-name, map-get($master-layouts, $master-layout-name)) {
+        @include kwf-breakpoint($breakpoint-name, $master-layout-name) {
             @each $column-type-class, $column-count in $column-types {
                 &.#{$column-type-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
                     //same logic in php _getChildMasterLayoutContexts

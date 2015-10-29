@@ -16,9 +16,11 @@ $breakpoints: null;
     @return map-get(map-get($breakpoints, $breakpoint-name), margin);
 }
 
-@mixin kwf-breakpoint($breakpoint-name, $_breakpoints: null) {
+@mixin kwf-breakpoint($breakpoint-name, $layout-name: null) {
     $old-breakpoints: $breakpoints;
-    @if $_breakpoints { $breakpoints: $_breakpoints !global; }
+    @if $layout-name {
+        $breakpoints: map-get($master-layouts, $_breakpoints) !global;
+    }
     $noMq: map-get(map-get($breakpoints, $breakpoint-name), no-mediaqueries);
     @if $noMq {
         $noMq: "html.kwfUp-no-mediaqueries";
@@ -36,9 +38,9 @@ $breakpoints: null;
     $breakpoints: $old-breakpoints !global;
 }
 
-@mixin kwf-breakpoints($breakpoint-names) {
+@mixin kwf-breakpoints($breakpoint-names, $layout-name: null) {
     @each $breakpoint-name in $breakpoint-names {
-        @include kwf-breakpoint($breakpoint-name) {
+        @include kwf-breakpoint($breakpoint-name, $layout-name) {
             @content;
         }
     }
