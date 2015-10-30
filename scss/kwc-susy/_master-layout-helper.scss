@@ -1,3 +1,6 @@
+@import "susy";
+@import "config/master-layouts";
+
 $breakpoints: null;
 
 @mixin set-master-layout($layout-name, $breakpoint-name: null) {
@@ -12,14 +15,14 @@ $breakpoints: null;
 @function get-breakpoint-layout($breakpoint-name) {
     @return map-get(map-get($breakpoints, $breakpoint-name), layout);
 }
-@function get-breakpoint-margin($breakpoint-name) {
-    @return map-get(map-get($breakpoints, $breakpoint-name), margin);
+@function get-breakpoint-property($breakpoint-name, $property-name) {
+    @return map-get(map-get($breakpoints, $breakpoint-name), $property-name);
 }
 
 @mixin kwf-breakpoint($breakpoint-name, $layout-name: null) {
     $old-breakpoints: $breakpoints;
     @if $layout-name {
-        $breakpoints: map-get($master-layouts, $_breakpoints) !global;
+        $breakpoints: map-get($master-layouts, $layout-name) !global;
     }
     $noMq: map-get(map-get($breakpoints, $breakpoint-name), no-mediaqueries);
     @if $noMq {
