@@ -1,7 +1,7 @@
 <?php
 class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
 {
-    public function getSupportedChildContexts()
+    public function calcSupportedChildContexts()
     {
         $ret = array();
         $masterLayouts = Kwc_Susy_Helper::getLayouts();

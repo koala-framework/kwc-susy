@@ -11,7 +11,7 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
         }
     }
 
-    public function getSupportedContexts()
+    public function calcSupportedContexts()
     {
         $layouts = Kwc_Susy_Helper::getLayouts();
         $ret = array();
@@ -24,16 +24,16 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
         }
         return $ret;
     }
-    public function getSupportedBoxContexts($boxName)
+    public function calcSupportedBoxContexts()
     {
         $layouts = Kwc_Susy_Helper::getLayouts();
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
-            if (isset($layout['box-spans'][$boxName])) {
-                $ret[] = array(
+            foreach ($layout['box-spans'] as $boxName=>$spans) {
+                $ret[$boxName][] = array(
                     'masterLayout' => $this->_layoutName,
                     'breakpoint' => $breakpointName,
-                    'spans' => $layout['box-spans'][$boxName],
+                    'spans' => $spans,
                 );
             }
         }

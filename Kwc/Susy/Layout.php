@@ -57,9 +57,8 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
         return $ret;
     }
 
-    public function getSupportedContexts()
+    public function calcSupportedContexts()
     {
-        if (isset($this->_cacheChildContexts)) return $this->_cacheChildContexts;
         $ret = array();
         foreach ($this->_findParentsStack($this->_class) as $stack) {
             $boxName = false;
@@ -103,7 +102,6 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
                 }
             }
         }
-        $this->_cacheChildContexts = $ret;
         return $ret;
     }
 
