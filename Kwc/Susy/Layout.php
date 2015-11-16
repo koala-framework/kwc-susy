@@ -112,12 +112,9 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
 
     public function _sortSupportedLayouts($a, $b)
     {
-        //first order by masterLayouts and spans
+        //first order by masterLayouts
         if ($a['masterLayout'] != $b['masterLayout']) {
             return $a['masterLayout'] > $b['masterLayout'] ? +1 : -1;
-        }
-        if ($a['spans'] != $b['spans']) {
-            return $a['spans'] > $b['spans'] ? +1 : -1;
         }
 
         //then by breakpoint values, so we can mobile-first
