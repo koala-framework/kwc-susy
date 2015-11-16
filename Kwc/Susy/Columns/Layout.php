@@ -3,7 +3,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
 {
     public function calcSupportedChildContexts()
     {
-        $ret = array();
+        $ret = array('child'=>array());
         $masterLayouts = Kwc_Susy_Helper::getLayouts();
         foreach ($this->getSupportedContexts() as $context) {
             foreach ($this->_getSetting('columns') as $column) {
@@ -18,7 +18,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
                     if ($spans < 1) $spans = 1;
                 }
 
-                $ret[] = array(
+                $ret['child'][] = array(
                     'masterLayout' => $context['masterLayout'],
                     'breakpoint' => $context['breakpoint'],
                     'spans' => (int)$spans

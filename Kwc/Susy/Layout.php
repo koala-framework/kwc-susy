@@ -18,17 +18,20 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
                             if (count($boxes) > 1) {
                                 $cache[$class][] = array(
                                     'box' => $k,
-                                    'component' => $c
+                                    'component' => $c,
+                                    'generator' => $genKey
                                 );
                             } else {
                                 $cache[$class][] = array(
                                     'box' => $boxes[0],
-                                    'component' => $c
+                                    'component' => $c,
+                                    'generator' => $genKey
                                 );
                             }
                         } else {
                             $cache[$class][] = array(
-                                'component' => $c
+                                'component' => $c,
+                                'generator' => $genKey
                             );
                         }
                     }
@@ -68,7 +71,7 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
                     $boxName = $stackEntry['box'];
                     $contexts = false;
                 } else {
-                    $contexts = Kwf_Component_Layout_Abstract::getInstance($class)->getSupportedChildContexts();
+                    $contexts = Kwf_Component_Layout_Abstract::getInstance($class)->getSupportedChildContexts($stackEntry['generator']);
                 }
                 if ($contexts===false) {
                     $layout = false;
