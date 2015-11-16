@@ -34,6 +34,14 @@
                         &--lineLast {
                             @include last;
                         }
+                    } @else {
+                        //center it
+                        $pre: floor(($content-spans % $column-count) / 2);
+                        @if $pre > 0 {
+                            &--lineFirst {
+                                @include pre(1 of $content-spans);
+                            }
+                        }
                     }
                 }
             }
