@@ -105,7 +105,30 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
                 }
             }
         }
+
+        usort($ret, array(__CLASS__, '_sortSupportedLayouts'));
         return $ret;
+    }
+
+    public function _sortSupportedLayouts($a, $b)
+    {
+        //first order by masterLayouts and spans
+        if ($a['masterLayout'] != $b['masterLayout']) {
+            return $a['masterLayout'] > $b['masterLayout'] ? +1 : -1;
+        }
+        if ($a['spans'] != $b['spans']) {
+            return $a['spans'] > $b['spans'] ? +1 : -1;
+        }
+
+        //then by breakpoint values, so we can mobile-first
+        static $masterLayouts;
+        if (!isset($masterLayouts)) $masterLayouts = Kwc_Susy_Helper::getLayouts();
+        $layoutA = $masterLayouts[$a['masterLayout']][$a['breakpoint']];
+        $layoutB = $masterLayouts[$b['masterLayout']][$b['breakpoint']];
+        $breakpointA = isset($layoutA['breakpoint']) ? (int)$layoutA['breakpoint'] : 0;
+        $breakpointB = isset($layoutB['breakpoint']) ? (int)$layoutB['breakpoint'] : 0;
+        if ($breakpointA == $breakpointB) return 0;
+        return ($breakpointA > $breakpointB) ? +1 : -1;
     }
 
     protected function _isSupportedContext($context)
