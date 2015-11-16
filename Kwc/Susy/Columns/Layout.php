@@ -41,6 +41,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
             //same logic in scss
             if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
                 //full width
+                $ret[] = $context;
             } else {
                 $context['spans'] = floor($context['spans'] * $widthCalc);
                 if ($context['spans'] < 1) {
