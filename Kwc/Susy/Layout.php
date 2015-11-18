@@ -132,4 +132,44 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
     {
         return true;
     }
+
+    public function getChildContentWidth(Kwf_Component_Data $data, Kwf_Component_Data $child)
+    {
+        $ret = 0;
+        $masterLayouts = Kwc_Susy_Helper::getLayouts();
+        foreach ($this->getChildContexts($data, $child) as $contexts) {
+            $breakpoint = $masterLayouts[$contexts['masterLayout']][$contexts['breakpoint']];
+            $colWidth = null;
+            if (isset($breakpoint['column-width'])) {
+                $colWidth = $breakpoint['column-width'];
+            } else if (isset($breakpoint['breakpoint'])) {
+                $colWidth = (int)$breakpoint['breakpoint'] / $breakpoint['columns'];
+            }
+            if ($colWidth) {
+                $width = $colWidth * $contexts['spans'];
+                $ret = max($ret, $width);
+            }
+        }
+        return $ret;
+    }
+
+    public function getContentWidth(Kwf_Component_Data $data)
+    {
+        $ret = 0;
+        $masterLayouts = Kwc_Susy_Helper::getLayouts();
+        foreach ($this->getContexts($data) as $contexts) {
+            $breakpoint = $masterLayouts[$contexts['masterLayout']][$contexts['breakpoint']];
+            $colWidth = null;
+            if (isset($breakpoint['column-width'])) {
+                $colWidth = $breakpoint['column-width'];
+            } else if (isset($breakpoint['breakpoint'])) {
+                $colWidth = (int)$breakpoint['breakpoint'] / $breakpoint['columns'];
+            }
+            if ($colWidth) {
+                $width = $colWidth * $contexts['spans'];
+                $ret = max($ret, $width);
+            }
+        }
+        return $ret;
+    }
 }
