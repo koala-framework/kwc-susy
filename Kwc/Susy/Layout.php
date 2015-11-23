@@ -120,6 +120,7 @@ class Kwc_Susy_Layout extends Kwf_Component_Layout_Abstract
         //then by breakpoint values, so we can mobile-first
         static $masterLayouts;
         if (!isset($masterLayouts)) $masterLayouts = Kwc_Susy_Helper::getLayouts();
+
         $layoutA = $masterLayouts[$a['masterLayout']][$a['breakpoint']];
         $layoutB = $masterLayouts[$b['masterLayout']][$b['breakpoint']];
         $breakpointA = isset($layoutA['breakpoint']) ? (int)$layoutA['breakpoint'] : 0;

@@ -1,7 +1,7 @@
 <?php
 class Kwc_Susy_Helper
 {
-    public static function getLayouts()
+    private static function _calcLayouts()
     {
         $ret = array();
         $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Kwc/Susy/Helper/get-layouts.scss');
@@ -23,6 +23,31 @@ class Kwc_Susy_Helper
             } else if ($ruleName == 'box-spans') {
                 $ret[$entry['master']][$entry['breakpoint-name']]['box-spans'][$entry['box-name']] = (int)$entry['spans'];
             }
+        }
+        return $ret;
+    }
+
+    /**
+     * @internal
+     */
+    public static function _build()
+    {
+        static $buildDone = false;
+        if ($buildDone) return;
+        $buildDone = true;
+
+        $data = self::_calcLayouts();
+        file_put_contents('build/susy-layouts', serialize($data));
+    }
+
+    public static function getLayouts()
+    {
+        static $ret;
+        if (isset($ret)) return $ret;
+        if (file_exists('build/susy-layouts')) {
+            $ret = unserialize(file_get_contents('build/susy-layouts'));
+        } else {
+            $ret = self::_calcLayouts();
         }
         return $ret;
     }

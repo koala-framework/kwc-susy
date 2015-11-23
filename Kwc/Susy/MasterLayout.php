@@ -11,6 +11,11 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
         }
     }
 
+    protected function _build()
+    {
+        Kwc_Susy_Helper::_build();
+    }
+
     public function calcSupportedContexts()
     {
         $layouts = Kwc_Susy_Helper::getLayouts();
