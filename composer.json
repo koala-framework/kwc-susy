@@ -16,7 +16,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-0": {
-            "Kwc_Susy_": ""
+            "Susy_": ""
         }
     }
 }

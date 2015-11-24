@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_Columns_Admin extends Kwc_Admin
+class Susy_Kwc_TextImage_Admin extends Kwc_Abstract_Composite_Admin
 {
     public function getScssConfig()
     {

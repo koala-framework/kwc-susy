@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_LightboxMasterLayout extends Kwc_Susy_MasterLayout
+class Susy_LightboxMasterLayout extends Susy_MasterLayout
 {
     protected $_layoutName = 'lightbox';
 

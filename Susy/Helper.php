@@ -1,10 +1,10 @@
 <?php
-class Kwc_Susy_Helper
+class Susy_Helper
 {
     private static function _calcLayouts()
     {
         $ret = array();
-        $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Kwc/Susy/Helper/get-layouts.scss');
+        $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Susy/Helper/get-layouts.scss');
         preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContents(null), $m);
         foreach (array_keys($m[0]) as $i) {
             $ruleName = $m[1][$i];

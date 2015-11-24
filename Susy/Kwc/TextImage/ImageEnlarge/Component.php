@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_TextImage_ImageEnlarge_Component extends Kwc_TextImage_ImageEnlarge_Component
+class Susy_Kwc_TextImage_ImageEnlarge_Component extends Kwc_TextImage_ImageEnlarge_Component
 {
     public static function getSettings()
     {

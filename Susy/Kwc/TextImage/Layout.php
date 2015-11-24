@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_TextImage_Layout extends Kwc_Susy_Layout
+class Susy_Kwc_TextImage_Layout extends Susy_Layout
 {
     protected function _isSupportedContext($context)
     {
@@ -18,7 +18,7 @@ class Kwc_Susy_TextImage_Layout extends Kwc_Susy_Layout
 
             $widthCalc = 100/$data->getComponent()->getRow()->image_width;
             $ret = array();
-            $masterLayouts = Kwc_Susy_Helper::getLayouts();
+            $masterLayouts = Susy_Helper::getLayouts();
             foreach ($ownContexts as $context) {
                 $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
                 //same logic in scss

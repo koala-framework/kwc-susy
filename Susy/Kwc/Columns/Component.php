@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_Columns_Component extends Kwc_Columns_Abstract_Component
+class Susy_Kwc_Columns_Component extends Kwc_Columns_Abstract_Component
 {
     public static $needsParentComponentClass = false;
     public static function getSettings()
@@ -23,7 +23,7 @@ class Kwc_Susy_Columns_Component extends Kwc_Columns_Abstract_Component
                 'name' => "4 $columnsTrl (25% - 25% - 25% - 25%)"
             )
         );
-        $ret['layoutClass'] = 'Kwc_Susy_Columns_Layout';
+        $ret['layoutClass'] = 'Susy_Kwc_Columns_Layout';
         return $ret;
     }
 

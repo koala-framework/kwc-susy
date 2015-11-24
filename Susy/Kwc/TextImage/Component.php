@@ -1,11 +1,11 @@
 <?php
-class Kwc_Susy_TextImage_Component extends Kwc_TextImage_Component
+class Susy_Kwc_TextImage_Component extends Kwc_TextImage_Component
 {
     public static function getSettings()
     {
         $ret = parent::getSettings();
-        $ret['generators']['child']['component']['image'] = 'Kwc_Susy_TextImage_ImageEnlarge_Component';
-        $ret['layoutClass'] = 'Kwc_Susy_TextImage_Layout';
+        $ret['generators']['child']['component']['image'] = 'Susy_Kwc_TextImage_ImageEnlarge_Component';
+        $ret['layoutClass'] = 'Susy_Kwc_TextImage_Layout';
         return $ret;
     }
 

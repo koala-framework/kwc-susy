@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_TextImage_Form extends Kwc_TextImage_Form
+class Susy_Kwc_TextImage_Form extends Kwc_TextImage_Form
 {
     protected function _initFields()
     {

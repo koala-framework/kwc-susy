@@ -1,5 +1,5 @@
 <?php
-class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
+class Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
 {
     protected $_layoutName;
 
@@ -13,12 +13,12 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
 
     protected function _build()
     {
-        Kwc_Susy_Helper::_build();
+        Susy_Helper::_build();
     }
 
     public function calcSupportedContexts()
     {
-        $layouts = Kwc_Susy_Helper::getLayouts();
+        $layouts = Susy_Helper::getLayouts();
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             $ret[] = array(
@@ -31,7 +31,7 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
     }
     public function calcSupportedBoxContexts()
     {
-        $layouts = Kwc_Susy_Helper::getLayouts();
+        $layouts = Susy_Helper::getLayouts();
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             foreach ($layout['box-spans'] as $boxName=>$spans) {
@@ -47,7 +47,7 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
 
     public function getContexts(Kwf_Component_Data $data)
     {
-        $layouts = Kwc_Susy_Helper::getLayouts();
+        $layouts = Susy_Helper::getLayouts();
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             if (isset($data->box)) {
@@ -69,7 +69,7 @@ class Kwc_Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
 
     public function getContentWidth(Kwf_Component_Data $data)
     {
-        $layouts = Kwc_Susy_Helper::getLayouts();
+        $layouts = Susy_Helper::getLayouts();
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             if (isset($layout['column-width'])) {

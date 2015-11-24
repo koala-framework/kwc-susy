@@ -1,10 +1,10 @@
 <?php
-class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
+class Susy_Kwc_Columns_Layout extends Susy_Layout
 {
     public function calcSupportedChildContexts()
     {
         $ret = array('child'=>array());
-        $masterLayouts = Kwc_Susy_Helper::getLayouts();
+        $masterLayouts = Susy_Helper::getLayouts();
         foreach ($this->getSupportedContexts() as $context) {
             foreach ($this->_getSetting('columns') as $column) {
                 $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
@@ -35,7 +35,7 @@ class Kwc_Susy_Columns_Layout extends Kwc_Susy_Layout
 
         $widthCalc = $child->row->col_span / $child->row->columns;
         $ret = array();
-        $masterLayouts = Kwc_Susy_Helper::getLayouts();
+        $masterLayouts = Susy_Helper::getLayouts();
         foreach ($ownContexts as $context) {
             $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
             //same logic in scss
