@@ -9,6 +9,7 @@
             breakpoint: map-get($layout, breakpoint);
             columns: susy-get(columns, map-get($layout, layout));
             column-width: susy-get(column-width, map-get($layout, layout));
+            container: susy-get(container, map-get($layout, layout));
             content-spans: map-get($layout, content-spans);
         }
         @if map-get($layout, box-spans) {

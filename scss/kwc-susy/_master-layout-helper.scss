@@ -2,24 +2,42 @@
 @import "config/master-layouts";
 
 $breakpoints: null;
+$breakpoint-name: null;
+$master-layout-name: null;
 
-@mixin set-master-layout($layout-name, $breakpoint-name: null) {
+@mixin set-master-layout($layout-name, $bname: null) {
     $breakpoints: map-get($master-layouts, $layout-name) !global;
-    @if not($breakpoint-name) { $breakpoint-name: nth(nth($breakpoints, 1), 1); }
-    @include layout(get-breakpoint-layout($breakpoint-name));
+    $master-layout-name: $layout-name !global;
+
+    @if not($bname) {
+        $bname: nth(nth($breakpoints, 1), 1);
+    }
+    $breakpoint-name: $bname !global;
+
+    @include layout(get-breakpoint-layout());
 }
 
-@function get-breakpoint-breakpoint($breakpoint-name) {
-    @return map-get(map-get($breakpoints, $breakpoint-name), breakpoint);
+@function get-breakpoint-property($property-name, $bname: null) {
+    @if not($bname) {
+        $bname: $breakpoint-name;
+    }
+    @return map-get(map-get($breakpoints, $bname), $property-name);
 }
-@function get-breakpoint-layout($breakpoint-name) {
-    @return map-get(map-get($breakpoints, $breakpoint-name), layout);
+@function get-breakpoint-layout($bname: null) {
+    @return get-breakpoint-property(layout, $bname);
 }
-@function get-breakpoint-property($breakpoint-name, $property-name) {
-    @return map-get(map-get($breakpoints, $breakpoint-name), $property-name);
+@function get-breakpoint-breakpoint($bname: null) {
+    @return get-breakpoint-property(breakpoint, $bname);
 }
 
-@mixin kwf-breakpoint($breakpoint-name, $layout-name: null) {
+@mixin kwf-breakpoint($bname, $layout-name: null) {
+
+    $old-breakpoint-name: $breakpoint-name;
+    $breakpoint-name: $bname !global;
+
+    $old-master-layout-name: $master-layout-name;
+    $master-layout-name: $layout-name !global;
+
     $old-breakpoints: $breakpoints;
     @if $layout-name {
         $breakpoints: map-get($master-layouts, $layout-name) !global;
@@ -30,7 +48,7 @@ $breakpoints: null;
     } else {
         $noMq: false;
     }
-    $breakpoint: get-breakpoint-breakpoint($breakpoint-name);
+    $breakpoint: get-breakpoint-property(breakpoint, $breakpoint-name);
     @if $breakpoint {
         @include susy-breakpoint($breakpoint, get-breakpoint-layout($breakpoint-name), $noMq) {
             @content;
@@ -38,6 +56,9 @@ $breakpoints: null;
     } @else {
         @content;
     }
+
+    $breakpoint-name: $old-breakpoint-name !global;
+    $master-layout-name: $old-master-layout-name !global;
     $breakpoints: $old-breakpoints !global;
 }
 
@@ -45,6 +66,19 @@ $breakpoints: null;
     @each $breakpoint-name in $breakpoint-names {
         @include kwf-breakpoint($breakpoint-name, $layout-name) {
             @content;
+        }
+    }
+}
+
+@mixin kwf-breakpoint-spans($breakpoint-names, $spans, $layout-name: null) {
+    @if not($layout-name) { $layout-name: $master-layout-name; }
+    @each $breakpoint-name in $breakpoint-names {
+        @include kwf-breakpoint($breakpoint-name, $layout-name) {
+            @include nested($spans) {
+                &.kwfUp-#{$layout-name}-#{$breakpoint-name}-spans#{$spans} {
+                    @content
+                }
+            }
         }
     }
 }

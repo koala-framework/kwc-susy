@@ -71,19 +71,21 @@ class Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
     {
         $layouts = Susy_Helper::getLayouts();
         $ret = array();
-        foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
-            if (isset($layout['column-width'])) {
-                $columnWidth = (int)$layout['column-width'];
-            } else if (isset($layout['breakpoint'])) {
-                $columnWidth = (int)$layout['breakpoint'] / $layout['columns']; //TODO not correct
+        foreach ($layouts[$this->_layoutName] as $breakpointName=>$breakpoint) {
+            if (isset($breakpoint['column-width'])) {
+                $colWidth = (int)$breakpoint['column-width'];
+            } else if (isset($breakpoint['container']) && (int)$breakpoint['container'] > 0) {
+                $colWidth = (int)$breakpoint['container'] / $breakpoint['columns'];
+            } else if (isset($breakpoint['breakpoint'])) {
+                $colWidth = (int)$breakpoint['breakpoint'] / $breakpoint['columns']; //TODO not correct
             } else {
                 //no breakpoint, no column-width: that's most probably mobile and that won't be max anyway. ignore it.
                 continue;
             }
             if (isset($data->box)) {
-                $ret[] = $layout['box-spans'][$data->box] * $columnWidth;
+                $ret[] = $breakpoint['box-spans'][$data->box] * $colWidth;
             } else {
-                $ret[] = $layout['content-spans'] * $columnWidth;
+                $ret[] = $breakpoint['content-spans'] * $colWidth;
             }
         }
         return max($ret);

@@ -143,6 +143,8 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
             $colWidth = null;
             if (isset($breakpoint['column-width'])) {
                 $colWidth = $breakpoint['column-width'];
+            } else if (isset($breakpoint['container']) && (int)$breakpoint['container'] > 0) {
+                $colWidth = (int)$breakpoint['container'] / $breakpoint['columns'];
             } else if (isset($breakpoint['breakpoint'])) {
                 $colWidth = (int)$breakpoint['breakpoint'] / $breakpoint['columns'];
             }
@@ -158,11 +160,14 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
     {
         $ret = 0;
         $masterLayouts = Susy_Helper::getLayouts();
+
         foreach ($this->getContexts($data) as $contexts) {
             $breakpoint = $masterLayouts[$contexts['masterLayout']][$contexts['breakpoint']];
             $colWidth = null;
             if (isset($breakpoint['column-width'])) {
                 $colWidth = $breakpoint['column-width'];
+            } else if (isset($breakpoint['container']) && (int)$breakpoint['container'] > 0) {
+                $colWidth = (int)$breakpoint['container'] / $breakpoint['columns'];
             } else if (isset($breakpoint['breakpoint'])) {
                 $colWidth = (int)$breakpoint['breakpoint'] / $breakpoint['columns'];
             }
