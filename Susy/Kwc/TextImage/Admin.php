@@ -6,9 +6,8 @@ class Susy_Kwc_TextImage_Admin extends Kwc_Abstract_Composite_Admin
         return array('master-layout-contexts' => Kwf_Component_Layout_Abstract::getInstance($this->_class)->getSupportedContexts());
     }
 
-    public function getScssConfigMtime()
+    public function getScssConfigMasterFiles()
     {
-        //TODO
-        return null;
+        return Kwf_Component_Layout_Abstract::getInstance($this->_class)->getSupportedContextsMasterFiles();
     }
 }
