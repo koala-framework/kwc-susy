@@ -118,7 +118,7 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
                 $masterLayout = Kwc_Abstract::getSetting($c, 'masterLayout');
                 $f = new Kwf_Assets_Dependency_File($masterLayout['layoutConfig']);
                 $ret[] = $f->getAbsoluteFileName();
-                $cls = Kwc_Abstract::hasSetting($c, 'class');
+                $cls = $masterLayout['class'];
                 do {
                     $ret[] = Kwf_Loader::findFile($cls);
                 } while ($cls = get_parent_class($cls));

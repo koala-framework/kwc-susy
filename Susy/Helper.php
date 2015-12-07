@@ -5,7 +5,7 @@ class Susy_Helper
     {
         $ret = array();
         $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Susy/Helper/get-layouts.scss');
-        preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContents(null), $m);
+        preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContentsPacked(null)->getFileContents(), $m);
         foreach (array_keys($m[0]) as $i) {
             $ruleName = $m[1][$i];
             $rule = $m[2][$i];
