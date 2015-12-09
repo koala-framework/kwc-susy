@@ -6,6 +6,7 @@ class Susy_Kwc_TextImage_Component extends Kwc_TextImage_Component
         $ret = parent::getSettings();
         $ret['generators']['child']['component']['image'] = 'Susy_Kwc_TextImage_ImageEnlarge_Component';
         $ret['layoutClass'] = 'Susy_Kwc_TextImage_Layout';
+        $ret['ownModel'] = 'Susy_Kwc_TextImage_Model';
         return $ret;
     }
 

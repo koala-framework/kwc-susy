@@ -12,11 +12,13 @@ class Susy_Kwc_TextImage_Layout extends Susy_Layout
         $ownContexts = parent::getChildContexts($data, $child);
 
         if ($child->id == 'image') {
-            if (!$data->getComponent()->getRow()->image || !$data->getComponent()->getRow()->image_width) {
+            if (!$data->getComponent()->getRow()->image) {
                 return null;
             }
 
-            $widthCalc = 100/$data->getComponent()->getRow()->image_width;
+            $imageWidth = $data->getComponent()->getRow()->image_width;
+            if (!$imageWidth) $imageWidth = 25;
+            $widthCalc = 100/$imageWidth;
             $ret = array();
             $masterLayouts = Susy_Helper::getLayouts();
             foreach ($ownContexts as $context) {
