@@ -124,7 +124,7 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
                 } while ($cls = get_parent_class($cls));
             }
             if (Kwc_Abstract::hasSetting($c, 'layoutClass')) {
-                $cls = Kwc_Abstract::hasSetting($c, 'layoutClass');
+                $cls = Kwc_Abstract::getSetting($c, 'layoutClass');
                 do {
                     $ret[] = Kwf_Loader::findFile($cls);
                 } while ($cls = get_parent_class($cls));
