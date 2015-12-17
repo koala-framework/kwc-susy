@@ -51,6 +51,10 @@ class Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
         $ret = array();
         foreach ($layouts[$this->_layoutName] as $breakpointName=>$layout) {
             if (isset($data->box)) {
+                if (!isset($layout['box-spans'][$data->box])) {
+                    //if box-spans isn't defined in one breakpoint return null (=no contexts are supported)
+                    return null;
+                }
                 $ret[] = array(
                     'masterLayout' => $this->_layoutName,
                     'breakpoint' => $breakpointName,
