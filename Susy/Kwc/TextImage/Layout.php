@@ -13,7 +13,7 @@ class Susy_Kwc_TextImage_Layout extends Susy_Layout
 
         if ($child->id == 'image') {
             if (!$data->getComponent()->getRow()->image) {
-                return null;
+                return array();
             }
 
             $imageWidth = $data->getComponent()->getRow()->image_width;
