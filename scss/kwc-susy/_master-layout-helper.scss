@@ -83,6 +83,15 @@ $master-layout-name: null;
     }
 }
 
+@mixin susy-nested() {
+    @if susy-get(gutter-position) == inside {
+        $gutter: gutter();
+        $margin: - $gutter/(1-($gutter/100%)*2);
+        margin-left: $margin;
+        margin-right: $margin;
+    }
+}
+
 /*
 @mixin master-layout-breakpoints($master-layout, $breakpoint-names) {
   $prev-layout: null;
