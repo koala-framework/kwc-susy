@@ -43,14 +43,14 @@ $master-layout-name: null;
     }
     $noMq: map-get(map-get($breakpoints, $breakpoint-name), no-mediaqueries);
     @if $noMq {
-        $noMq: "html.kwfUp-no-mediaqueries";
-    } @else {
-        $noMq: false;
+        @ie8 {
+            @content;
+        }
     }
     $breakpoint: get-breakpoint-property(breakpoint, $breakpoint-name);
 
     @if $breakpoint {
-        @include susy-breakpoint($breakpoint, get-breakpoint-layout($breakpoint-name), $noMq) {
+        @include susy-breakpoint($breakpoint, get-breakpoint-layout($breakpoint-name), false) {
             @content;
         }
     } @else {
