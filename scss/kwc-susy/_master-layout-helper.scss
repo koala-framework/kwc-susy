@@ -44,7 +44,9 @@ $master-layout-name: null;
     $noMq: map-get(map-get($breakpoints, $breakpoint-name), no-mediaqueries);
     @if $noMq {
         @ie8 {
-            @content;
+            @include with-layout(get-breakpoint-layout($breakpoint-name)) {
+                @content;
+            }
         }
     }
     $breakpoint: get-breakpoint-property(breakpoint, $breakpoint-name);
