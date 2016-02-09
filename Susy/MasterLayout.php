@@ -86,7 +86,7 @@ class Susy_MasterLayout extends Kwf_Component_MasterLayout_Abstract
                 //no breakpoint, no column-width: that's most probably mobile and that won't be max anyway. ignore it.
                 continue;
             }
-            if (isset($data->box)) {
+            if (isset($data->box) && isset($breakpoint['box-spans'][$data->box])) {
                 $ret[] = $breakpoint['box-spans'][$data->box] * $colWidth;
             } else {
                 $ret[] = $breakpoint['content-spans'] * $colWidth;
