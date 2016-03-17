@@ -1,7 +1,9 @@
 @import "kwc-susy/master-layout-helper";
+@import "compass/utilities/general/clearfix";
 @import "config";
 
 .kwcClass {
+    @include pie-clearfix;
     &__listItem {
         &--lineFirst {
             clear: both;
@@ -49,4 +51,3 @@
         }
     }
 }
-
