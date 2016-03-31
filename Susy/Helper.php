@@ -3,8 +3,21 @@ class Susy_Helper
 {
     private static function _calcLayouts()
     {
+        //Support Kwf 4.0 ($needsProviderList=false) and 4.1+ ($needsProviderList=true)
+        $reflection = new ReflectionClass('Kwf_Assets_Dependency_Abstract');
+        $params = $reflection->getConstructor()->getParameters();
+        $needsProviderList = false;
+        if ($params && $params[0]->getName() == 'providerList') {
+            $needsProviderList = true;
+        }
+
+
         $ret = array();
-        $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Susy/Helper/get-layouts.scss');
+        if ($needsProviderList) {
+            $d = new Kwf_Assets_Dependency_File_Scss(Kwf_Assets_ProviderList_Default::getInstance(), 'kwcSusy/Susy/Helper/get-layouts.scss');
+        } else {
+            $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Susy/Helper/get-layouts.scss');
+        }
         preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContentsPacked(null)->getFileContents(), $m);
         foreach (array_keys($m[0]) as $i) {
             $ruleName = $m[1][$i];

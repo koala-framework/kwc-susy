@@ -112,11 +112,23 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
 
     public function getSupportedContextsMasterFiles()
     {
+        //Support Kwf 4.0 ($needsProviderList=false) and 4.1+ ($needsProviderList=true)
+        $reflection = new ReflectionClass('Kwf_Assets_Dependency_Abstract');
+        $params = $reflection->getConstructor()->getParameters();
+        $needsProviderList = false;
+        if ($params && $params[0]->getName() == 'providerList') {
+            $needsProviderList = true;
+        }
+
         $ret = array();
         foreach (Kwc_Abstract::getComponentClasses() as $c) {
             if (Kwc_Abstract::hasSetting($c, 'masterLayout')) {
                 $masterLayout = Kwc_Abstract::getSetting($c, 'masterLayout');
-                $f = new Kwf_Assets_Dependency_File($masterLayout['layoutConfig']);
+                if ($needsProviderList) {
+                    $f = new Kwf_Assets_Dependency_File(Kwf_Assets_ProviderList_Default::getInstance(), $masterLayout['layoutConfig']);
+                } else {
+                    $f = new Kwf_Assets_Dependency_File($masterLayout['layoutConfig']);
+                }
                 $ret[] = $f->getAbsoluteFileName();
                 $cls = $masterLayout['class'];
                 do {
