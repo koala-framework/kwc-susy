@@ -132,14 +132,29 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
                 $ret[] = $f->getAbsoluteFileName();
                 $cls = $masterLayout['class'];
                 do {
-                    $ret[] = Kwf_Loader::findFile($cls);
+                    $classes[] = $cls;
                 } while ($cls = get_parent_class($cls));
             }
             if (Kwc_Abstract::hasSetting($c, 'layoutClass')) {
                 $cls = Kwc_Abstract::getSetting($c, 'layoutClass');
                 do {
-                    $ret[] = Kwf_Loader::findFile($cls);
+                    $classes[] = $cls;
                 } while ($cls = get_parent_class($cls));
+            }
+        }
+        foreach (array_unique($classes) as $cls) {
+            $file = Kwf_Loader::findFile($cls);
+            if (!file_exists($file)) {
+                foreach (explode(PATH_SEPARATOR, get_include_path()) as $i) {
+                    if (file_exists($i.'/'.$file)) {
+                        if ($needsProviderList) {
+                            $f = new Kwf_Assets_Dependency_File(Kwf_Assets_ProviderList_Default::getInstance(), $i.'/'.$file);
+                        } else {
+                            $f = new Kwf_Assets_Dependency_File($i.'/'.$file);
+                        }
+                        $ret[] = $f->getAbsoluteFileName();
+                    }
+                }
             }
         }
         $ret = array_unique($ret);
