@@ -9,45 +9,70 @@
             clear: both;
         }
     }
+
     $column-types: (
-        col2col-50_50: 2,
-        col3col-33_33_33: 3,
-        col4col-25_25_25_25: 4,
+        col2col-50_50: (1, 1),
+        col2col-66_33: (2, 1),
+        col2col-33_66: (1, 2),
+        col2col-75_25: (3, 1),
+        col2col-25_75: (1, 3),
+        col3col-33_33_33: (1, 1, 1),
+        col3col-25_50_25: (1, 2, 1),
+        col4col-25_25_25_25: (1, 1, 1, 1)
     );
+
     @each $layout-context in map-get($config, master-layout-contexts) {
         $master-layout-name: map-get($layout-context, masterLayout);
         $breakpoint-name: map-get($layout-context, breakpoint);
         $breakpoint-value: map-get(map-get(map-get($master-layouts, $master-layout-name), $breakpoint-name), breakpoint);
         $content-spans: map-get($layout-context, spans);
+
         @include kwf-breakpoint($breakpoint-name, $master-layout-name) {
-            @each $column-type-class, $column-count in $column-types {
-                &.#{$column-type-class}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
+            @each $column-type-key, $column-type-spans in $column-types {
+                &.#{$column-type-key}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
+
                     //same logic in php _getChildMasterLayoutContexts
                     @if not $breakpoint-value or $breakpoint-value * $content-spans / susy-get(columns, $susy) < 300px {
                         $column-spans: $content-spans;
+                        @include span($column-spans of $content-spans);
                     } @else {
-                        $column-spans: floor($content-spans / $column-count);
-                        @if $column-spans < 1 {
-                            $column-spans: 1;
+                        $span-sum: 0;
+                        @each $span in $column-type-spans {
+                            $span-sum: $span-sum + $span;
                         }
-                    }
-                    @include span($column-spans of $content-spans);
-                    @if $content-spans % $column-count == 0 {
-                        &--lineLast {
-                            @include last;
-                        }
-                    } @else {
-                        //center it
-                        $pre: floor(($content-spans % $column-count) / 2);
-                        @if $pre > 0 {
-                            &--lineFirst {
-                                @include pre(1 of $content-spans);
+
+                        @each $span in $column-type-spans {
+                            &.span#{$span} {
+                                $column-spans: $content-spans / $span-sum * $span;
+
+                                @if $column-spans < 1 {
+                                    $column-spans: 1;
+                                }
+
+                                @include span($column-spans of $content-spans);
+
+                                &.kwcBem__listItem--last {
+                                    @include last;
+                                }
+
+                                &.kwcBem__listItem--first {
+                                    @include first;
+                                }
+
+                                @if $content-spans % $span != 0 {
+                                    //center it
+                                    $pre: floor(($content-spans % $span) / 2);
+                                    @if $pre > 0 {
+                                        &--lineFirst {
+                                            @include pre(1 of $content-spans);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-
         }
     }
 }
