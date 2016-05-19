@@ -50,7 +50,9 @@ class Susy_Kwc_Columns_Layout extends Susy_Layout
                 $colSettings = $this->_getSetting('columns');
                 $type = $data->getComponent()->getRow()->type;
                 $columnTypeSpans = $colSettings[$type]['colSpans'];
-                $span = $columnTypeSpans[$child->row->pos-1];
+                $totalColumns = count($columnTypeSpans);
+                $currentCol = ($child->row->pos % $totalColumns) ? $child->row->pos % $totalColumns : $totalColumns;
+                $span = $columnTypeSpans[$currentCol-1];
 
                 $context['spans'] = $breakpoint['columns'] / array_sum($columnTypeSpans) * $span;
                 if ($context['spans'] < 1) $context['spans'] = 1;
