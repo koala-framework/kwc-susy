@@ -29,10 +29,22 @@ class Susy_Layout extends Kwf_Component_Layout_Abstract
                                 );
                             }
                         } else {
-                            $cache[$class][] = array(
-                                'component' => $c,
-                                'generator' => $genKey
-                            );
+                            if (!Kwc_Abstract::hasSetting($c, 'masterLayout') &&
+                                !is_instance_of(Kwc_Abstract::getSetting($c, 'contentSender'), 'Kwf_Component_Abstract_ContentSender_Lightbox') &&
+                                Kwc_Abstract::getSetting($c, 'layoutClass') == 'Kwf_Component_Layout_Default'
+                            ) {
+                                //don't add component with default layout, add parent instead as it behaves just like the parent
+                                foreach (self::_whoCreates($c) as $i) {
+                                    if (!in_array($i, $cache[$class])) {
+                                        $cache[$class][] = $i;
+                                    }
+                                }
+                            } else {
+                                $cache[$class][] = array(
+                                    'component' => $c,
+                                    'generator' => $genKey
+                                );
+                            }
                         }
                     }
                 }
