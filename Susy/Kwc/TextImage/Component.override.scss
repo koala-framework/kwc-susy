@@ -35,6 +35,10 @@
                                 @include span($image-spans of $content-spans);
                             }
 
+                            .kwcBem__text {
+                                @include span(($content-spans - $image-spans) of $content-spans);
+                            }
+
                             &.kwcBem--noFlow {
                                 .kwcBem__image {
                                     display: table-cell;
@@ -48,12 +52,19 @@
                             }
 
                             &.kwcBem--positionLeft, &.kwcBem--positionRight { .kwfUp-imageCaption { text-align: left; } }
-                            &.kwcBem--positionLeft .kwcBem__image { float: left; }
+                            &.kwcBem--positionLeft .kwcBem__text { @include last; }
                             &.kwcBem--positionRight .kwcBem__image { @include last; }
                             &.kwcBem--positionCenter {
                                 .kwcBem__image {
                                     text-align: center;
                                     display: inline;
+
+                                    @if (($content-spans - $image-spans) % 2 == 0) {
+                                        @include pre(($content-spans - $image-spans) / 2);
+                                    } @else {
+                                        @include pre(($content-spans - $image-spans - 1) / 2);
+                                        @include span($image-spans + 1);
+                                    }
 
                                     img {
                                         margin-bottom: -3px;
@@ -61,7 +72,10 @@
                                     }
                                 }
 
-                                .kwcBem__text { display: block; }
+                                .kwcBem__text {
+                                    display: block;
+                                    @include span($content-spans);
+                                }
                             }
 
                             .kwcBem__image {
