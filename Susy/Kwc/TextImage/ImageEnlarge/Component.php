@@ -1,9 +1,9 @@
 <?php
 class Susy_Kwc_TextImage_ImageEnlarge_Component extends Kwc_TextImage_ImageEnlarge_Component
 {
-    public static function getSettings()
+    public static function getSettings($param = null)
     {
-        $ret = parent::getSettings();
+        $ret = parent::getSettings($param);
         $ret['defineWidth'] = false;
         $ret['dimensions'] = array(
             'fullWidth'=>array(

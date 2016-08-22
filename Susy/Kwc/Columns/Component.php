@@ -2,7 +2,7 @@
 class Susy_Kwc_Columns_Component extends Kwc_Columns_Abstract_Component
 {
     public static $needsParentComponentClass = false;
-    public static function getSettings()
+    public static function getSettings($param = null)
     {
         $ret = parent::getSettings('Kwc_Paragraphs_Component');
         $ret['layoutClass'] = 'Susy_Kwc_Columns_Layout';
@@ -45,9 +45,9 @@ class Susy_Kwc_Columns_Component extends Kwc_Columns_Abstract_Component
         return $ret;
     }
 
-    public function getTemplateVars()
+    public function getTemplateVars(Kwf_Component_Renderer_Abstract $renderer)
     {
-        $ret = parent::getTemplateVars();
+        $ret = parent::getTemplateVars($renderer);
         foreach ($this->getMasterLayoutContexts() as $c) {
             $ret['rootElementClass'] .= " kwfUp-$c[masterLayout]-$c[breakpoint]-spans$c[spans]";
         }
