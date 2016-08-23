@@ -45,7 +45,7 @@ class Susy_Kwc_Columns_Component extends Kwc_Columns_Abstract_Component
         return $ret;
     }
 
-    public function getTemplateVars(Kwf_Component_Renderer_Abstract $renderer)
+    public function getTemplateVars(Kwf_Component_Renderer_Abstract $renderer = null)
     {
         $ret = parent::getTemplateVars($renderer);
         foreach ($this->getMasterLayoutContexts() as $c) {

@@ -10,7 +10,7 @@ class Susy_Kwc_TextImage_Component extends Kwc_TextImage_Component
         return $ret;
     }
 
-    public function getTemplateVars(Kwf_Component_Renderer_Abstract $renderer)
+    public function getTemplateVars(Kwf_Component_Renderer_Abstract $renderer = null)
     {
         $ret = parent::getTemplateVars($renderer);
         foreach ($this->getMasterLayoutContexts() as $c) {
