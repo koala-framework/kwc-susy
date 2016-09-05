@@ -2,6 +2,7 @@
 class Susy_Kwc_TextImage_Model extends Kwc_TextImage_Model
 {
     protected $_default = array(
-        'image_width' => 25
+        'image_width' => 25,
+        'position' => 'left'
     );
 }
