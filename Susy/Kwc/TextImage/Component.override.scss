@@ -78,6 +78,18 @@
                                 }
                             }
 
+                            &.kwcBem--flow {
+                                .kwcBem__text {
+                                    width: 100%;
+                                    float: none;
+                                }
+                                &.kwcBem--positionCenter {
+                                    .kwcBem__text {
+                                        float: left;
+                                    }
+                                }
+                            }
+
                             .kwcBem__image {
                                 img {
                                     display: block;
