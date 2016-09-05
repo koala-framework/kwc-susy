@@ -16,7 +16,10 @@ class Susy_Kwc_TextImage_Component extends Kwc_TextImage_Component
         foreach ($this->getMasterLayoutContexts() as $c) {
             $ret['rootElementClass'] .= " kwfUp-$c[masterLayout]-$c[breakpoint]-spans$c[spans]";
         }
-        $ret['rootElementClass'] .= " ".$this->_getBemClass('--imagewidth-'.$this->getRow()->image_width);
+        $row = $this->getRow();
+        if ($row->image && $this->getData()->getChildComponent('-image')->hasContent()) {
+            $ret['rootElementClass'] .= " ".$this->_getBemClass('--imagewidth-'.$row->image_width);
+        }
         return $ret;
     }
 }
