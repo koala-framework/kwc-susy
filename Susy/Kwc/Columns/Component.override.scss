@@ -31,16 +31,24 @@
             @each $column-type-key, $column-type-spans in $column-types {
                 &.#{$column-type-key}.kwfUp-#{$master-layout-name}-#{$breakpoint-name}-spans#{$content-spans} .kwcBem__listItem {
 
+
+                    $span-sum: 0;
+                    @each $span in $column-type-spans {
+                        $span-sum: $span-sum + $span;
+                    }
+
                     //same logic in php _getChildMasterLayoutContexts
-                    @if not $breakpoint-value or $breakpoint-value * $content-spans / susy-get(columns, $susy) < 300px {
+                    $breakWidth: 350px;
+                    @if ($span-sum >= 3) {
+                        $breakWidth: 500px;
+                    } @else if ($span-sum >= 4) {
+                        $breakWidth: 700px;
+                    }
+
+                    @if not $breakpoint-value or $breakpoint-value * $content-spans / susy-get(columns, $susy) < $breakWidth {
                         $column-spans: $content-spans;
                         @include span($column-spans of $content-spans);
                     } @else {
-                        $span-sum: 0;
-                        @each $span in $column-type-spans {
-                            $span-sum: $span-sum + $span;
-                        }
-
                         @each $span in $column-type-spans {
                             &.span#{$span} {
                                 $column-spans: $content-spans / $span-sum * $span;

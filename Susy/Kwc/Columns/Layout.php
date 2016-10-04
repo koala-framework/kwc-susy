@@ -8,10 +8,17 @@ class Susy_Kwc_Columns_Layout extends Susy_Layout
 
         foreach ($this->getSupportedContexts() as $context) {
             foreach ($this->_getSetting('columns') as $column) {
+
+                $spanSum = array_sum($column['colSpans']);
+                $breakWidth = 350;
+                if ($spanSum >= 3) $breakWidth = 500;
+                else if ($spanSum >= 4) $breakWidth = 700;
+
                 foreach ($column['colSpans'] as $span) {
                     $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
+
                     //same logic in scss
-                    if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
+                    if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < $breakWidth) {
                         //full width
                         $spans = $context['spans'];
                     } else {
@@ -42,14 +49,21 @@ class Susy_Kwc_Columns_Layout extends Susy_Layout
 
         foreach ($ownContexts as $context) {
             $breakpoint = $masterLayouts[$context['masterLayout']][$context['breakpoint']];
+            $colSettings = $this->_getSetting('columns');
+            $type = $data->getComponent()->getRow()->type;
+
+            $columnTypeSpans = $colSettings[$type]['colSpans'];
+            $spanSum = array_sum($columnTypeSpans);
+
             //same logic in scss
-            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < 300) {
+            $breakWidth = 350;
+            if ($spanSum >= 3) $breakWidth = 500;
+            else if ($spanSum >= 4) $breakWidth = 700;
+
+            if (!isset($breakpoint['breakpoint']) || (int)$breakpoint['breakpoint'] * $context['spans'] / $breakpoint['columns'] < $breakWidth) {
                 //full width
                 $ret[] = $context;
             } else {
-                $colSettings = $this->_getSetting('columns');
-                $type = $data->getComponent()->getRow()->type;
-                $columnTypeSpans = $colSettings[$type]['colSpans'];
                 $totalColumns = count($columnTypeSpans);
                 $currentCol = ($child->row->pos % $totalColumns) ? $child->row->pos % $totalColumns : $totalColumns;
                 $span = $columnTypeSpans[$currentCol-1];
