@@ -4,7 +4,7 @@
 
 .kwcClass {
     @include pie-clearfix;
-    &__listItem {
+    .kwcBem__listItem {
         &--lineFirst {
             clear: both;
         }
