@@ -54,7 +54,7 @@ class Susy_Kwc_Columns_Layout extends Susy_Layout
                 $currentCol = ($child->row->pos % $totalColumns) ? $child->row->pos % $totalColumns : $totalColumns;
                 $span = $columnTypeSpans[$currentCol-1];
 
-                $context['spans'] = $breakpoint['columns'] / array_sum($columnTypeSpans) * $span;
+                $context['spans'] = floor($context['spans'] / array_sum($columnTypeSpans) * $span);
                 if ($context['spans'] < 1) $context['spans'] = 1;
 
                 $ret[] = $context;
