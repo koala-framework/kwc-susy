@@ -51,11 +51,11 @@
 
                                 @include span($column-spans of $content-spans);
 
-                                &.kwcBem__listItem--last {
+                                &.kwcBem__listItem--lineLast {
                                     @include last;
                                 }
 
-                                &.kwcBem__listItem--first {
+                                &.kwcBem__listItem--lineFirst {
                                     @include first;
                                 }
 
