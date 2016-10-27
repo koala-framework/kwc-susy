@@ -88,6 +88,11 @@
                                         float: left;
                                     }
                                 }
+                                &.kwcBem--positionRight {
+                                    .kwcBem__image {
+                                        margin-left: gutter();
+                                    }
+                                }
                             }
 
                             .kwcBem__image {
@@ -98,8 +103,6 @@
                                 display: inline;
                                 max-width: 50%;
                             }
-
-
 
                             .kwfUp-imageCaption {
                                 padding: 3px 0 5px 0;
