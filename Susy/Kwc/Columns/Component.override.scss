@@ -5,7 +5,7 @@
 .kwcClass {
     @include pie-clearfix;
     .kwcBem__listItem {
-        &--lineFirst {
+        &--lineFirst, .lineFirst {
             clear: both;
         }
     }
@@ -59,11 +59,11 @@
 
                                 @include span($column-spans of $content-spans);
 
-                                &.kwcBem__listItem--lineLast {
+                                &.kwcBem__listItem--lineLast, &.lineLast {
                                     @include last;
                                 }
 
-                                &.kwcBem__listItem--lineFirst {
+                                &.kwcBem__listItem--lineFirst, &.lineFirst {
                                     @include first;
                                 }
 
@@ -71,7 +71,7 @@
                                     //center it
                                     $pre: floor(($content-spans % $span) / 2);
                                     @if $pre > 0 {
-                                        &--lineFirst {
+                                        &--lineFirst, .lineFirst {
                                             @include pre(1 of $content-spans);
                                         }
                                     }
