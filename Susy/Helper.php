@@ -3,22 +3,15 @@ class Susy_Helper
 {
     private static function _calcLayouts()
     {
-        //Support Kwf 4.0 ($needsProviderList=false) and 4.1+ ($needsProviderList=true)
-        $reflection = new ReflectionClass('Kwf_Assets_Dependency_Abstract');
-        $params = $reflection->getConstructor()->getParameters();
-        $needsProviderList = false;
-        if ($params && $params[0]->getName() == 'providerList') {
-            $needsProviderList = true;
+        $cmd = 'NODE_PATH=vendor/koala-framework/koala-framework/node_modules_add ./vendor/bin/node '.__DIR__.'/Helper/get-layouts.js';
+        exec($cmd, $out, $retVal);
+        $out = implode("\n", $out);
+        if ($retVal) {
+            throw new Kwf_Exception("get-layout failed:\n".$out);
         }
-
 
         $ret = array();
-        if ($needsProviderList) {
-            $d = new Kwf_Assets_Dependency_File_Scss(Kwf_Assets_ProviderList_Default::getInstance(), 'kwcSusy/Susy/Helper/get-layouts.scss');
-        } else {
-            $d = new Kwf_Assets_Dependency_File_Scss('kwcSusy/Susy/Helper/get-layouts.scss');
-        }
-        preg_match_all('#([a-z-]+)\s*{(.*?)}#', $d->getContentsPacked(null)->getFileContents(), $m);
+        preg_match_all('#([a-z-]+)\s*{(.*?)}#s', $out, $m);
         foreach (array_keys($m[0]) as $i) {
             $ruleName = $m[1][$i];
             $rule = $m[2][$i];
