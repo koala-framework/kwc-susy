@@ -3,7 +3,7 @@ class Susy_Helper
 {
     private static function _calcLayouts()
     {
-        $cmd = 'NODE_PATH=vendor/koala-framework/koala-framework/node_modules_add ./vendor/bin/node '.__DIR__.'/Helper/get-layouts.js';
+        $cmd = 'NODE_PATH=vendor/koala-framework/koala-framework/node_modules_build ./vendor/bin/node '.__DIR__.'/Helper/get-layouts.js';
         exec($cmd, $out, $retVal);
         $out = implode("\n", $out);
         if ($retVal) {
