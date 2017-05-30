@@ -15,7 +15,7 @@ class Susy_Kwc_Columns_Layout extends Susy_Layout
                         //full width
                         $spans = $context['spans'];
                     } else {
-                        $spans = $breakpoint['content-spans'] / array_sum($column['colSpans']) * $span;
+                        $spans = floor($context['spans'] / array_sum($column['colSpans']) * $span);
                         if ($spans < 1) $spans = 1;
                     }
 
