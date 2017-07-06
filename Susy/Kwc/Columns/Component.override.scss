@@ -3,6 +3,8 @@
 
 .kwcClass {
     @include pie-clearfix;
+    @include susy-nested;
+
     .kwcBem__listItem {
         &--lineFirst, &.lineFirst {
             clear: both;
