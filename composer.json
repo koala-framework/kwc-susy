@@ -9,7 +9,7 @@
     },
     "extra": {
         "require-bower": {
-            "susy": "2.2.6"
+            "susy": "^2.2.6"
         }
     },
     "minimum-stability": "dev",
