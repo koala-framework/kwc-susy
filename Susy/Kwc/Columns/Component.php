@@ -42,6 +42,8 @@ class Susy_Kwc_Columns_Component extends Kwc_Columns_Abstract_Component
                 'name' => "4 $columnsTrl (25% - 25% - 25% - 25%)"
             )
         );
+        $ret['apiContent'] = 'Susy_Kwc_Columns_ApiContent';
+        $ret['apiContentType'] = 'susyColumns';
         return $ret;
     }
 
