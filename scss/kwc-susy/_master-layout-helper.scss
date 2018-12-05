@@ -85,27 +85,3 @@ $master-layout-name: null;
         margin-right: $margin;
     }
 }
-
-/*
-@mixin master-layout-breakpoints($master-layout, $breakpoint-names) {
-  $prev-layout: null;
-  @each $layout-name, $layout-config in $breakpoints {
-    $breakpoint: map-get($layout-config, breakpoint);
-    $layout: map-get($layout-config, layout);
-    @if $prev-layout != $layout {
-      @if $breakpoint {
-        $no-media-class: null;
-        @if map-get($layout-config, no-mediaqueries) {
-          $no-media-class: "html.kwfUp-no-mediaqueries";
-        }
-        @include susy-breakpoint($breakpoint, $layout, $no-media-class) {
-          @content;
-        }
-      } @else {
-        @content;
-      }
-    }
-    $prev-layout: $layout;
-  }
-}
-*/
