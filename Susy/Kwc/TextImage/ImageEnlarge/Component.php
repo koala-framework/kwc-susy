@@ -13,8 +13,6 @@ class Susy_Kwc_TextImage_ImageEnlarge_Component extends Kwc_TextImage_ImageEnlar
                 'cover' => true
             ),
         );
-        $ret['apiContent'] = 'Kwc_Basic_Image_ApiContent';
-        $ret['apiContentType'] = 'image';
         return $ret;
     }
 }
