@@ -1,4 +1,10 @@
-const sass = require('node-sass');
+let sass;
+try {
+    sass = require('sass');
+} catch (e) {
+    // older koala-framework versions ship node-sass instead of sass
+    sass = require('node-sass');
+}
 const fs = require('fs');
 const lookupSassIncludePaths = require('kwf-webpack/loader/lookup-sass-include-paths');
 
